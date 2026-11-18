@@ -3,6 +3,19 @@ import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
 import db from "../config/db";
 
+// Lihat Semua User (Hanya Admin)
+export const getAllUsers = async (req: Request, res: Response) => {
+  try {
+    // Kita mengecualikan password agar lebih aman saat data dikirim ke frontend
+    const [rows] = await db.query(
+      "SELECT id, name, email, role, created_at FROM users"
+    );
+    res.json(rows);
+  } catch (error) {
+    res.status(500).json({ message: "Error mengambil data user", error });
+  }
+};
+
 export const register = async (req: Request, res: Response) => {
   try {
     const { name, email, password } = req.body;
