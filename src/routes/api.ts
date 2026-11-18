@@ -1,5 +1,5 @@
 import express from "express";
-import { register, login } from "../controllers/authController";
+import { register, login, getAllUsers } from "../controllers/authController";
 import {
   getGuitars,
   addGuitar,
@@ -9,11 +9,17 @@ import {
 import { verifyToken, isAdmin } from "../middlewares/auth";
 import { upload } from "../middlewares/upload";
 
+
 const router = express.Router();
+
 
 // Auth Routes
 router.post("/register", register);
 router.post("/login", login);
+
+
+// User Routes (Admin Only) - Lihat semua data user
+router.get("/users", verifyToken, isAdmin, getAllUsers);
 
 // Guitar Routes (Public/User) - Bisa search & filter
 router.get("/guitars", verifyToken, getGuitars);

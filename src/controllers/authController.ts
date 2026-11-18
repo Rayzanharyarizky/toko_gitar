@@ -3,6 +3,7 @@ import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
 import db from "../config/db";
 
+
 // Lihat Semua User (Hanya Admin)
 export const getAllUsers = async (req: Request, res: Response) => {
   try {
